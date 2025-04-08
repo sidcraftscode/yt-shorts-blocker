@@ -1,6 +1,6 @@
 # Privacy Policy
 
-Last Updated: March 19, 2024
+Last Updated: April 8th, 2025
 
 ## Overview
 This Privacy Policy explains how the YouTube Shorts Blocker extension ("we", "our", or "the extension") handles user data. We are committed to protecting your privacy and being transparent about our practices.
