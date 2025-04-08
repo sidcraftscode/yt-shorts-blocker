@@ -1,6 +1,7 @@
 let shortsBlockedCount = 0;
 let playablesBlockedCount = 0;
 let intervalId = null;
+let processedItems = new Set(); // Keep track of processed items to avoid double counting
 
 // Function to check if extension context is valid
 function isExtensionContextValid() {
@@ -10,6 +11,20 @@ function isExtensionContextValid() {
         return true; // Even if there's an error, return true
     }
 }
+
+// Function to update storage with current counts
+function updateStorage() {
+    chrome.storage.local.set({
+        shortsBlockedCount: shortsBlockedCount,
+        playablesBlockedCount: playablesBlockedCount
+    });
+}
+
+// Load initial counts from storage
+chrome.storage.local.get(['shortsBlockedCount', 'playablesBlockedCount'], (result) => {
+    shortsBlockedCount = result.shortsBlockedCount || 0;
+    playablesBlockedCount = result.playablesBlockedCount || 0;
+});
 
 // Function to hide YouTube Shorts, Playables, the "Shorts" sidebar entry, the Shorts section header, and dismissible section
 function hideYouTubeContent() {
@@ -33,21 +48,42 @@ function hideYouTubeContent() {
 
             // Redirect if on shorts page and shorts blocking is enabled
             if (blockShorts && window.location.pathname.includes('/shorts/')) {
+                shortsBlockedCount++;
+                updateStorage();
                 window.location.href = 'https://www.youtube.com';
                 return;
             }
 
             // Hide YouTube Shorts and Playables from the homepage feed
             const videoItems = document.querySelectorAll('ytd-rich-item-renderer');
+            let statsUpdated = false;
+
             videoItems.forEach(item => {
+                // Skip if we've already processed this item
+                if (processedItems.has(item)) {
+                    return;
+                }
+
                 const link = item.querySelector('a[href]');
                 if (link) {
-                    if ((blockShorts && link.href.includes('/shorts/')) || 
-                        (blockPlayables && link.href.includes('/playables/'))) {
+                    if (blockShorts && link.href.includes('/shorts/')) {
                         item.style.display = 'none';
+                        shortsBlockedCount++;
+                        statsUpdated = true;
+                        processedItems.add(item);
+                    } else if (blockPlayables && link.href.includes('/playables/')) {
+                        item.style.display = 'none';
+                        playablesBlockedCount++;
+                        statsUpdated = true;
+                        processedItems.add(item);
                     }
                 }
             });
+
+            // Only update storage if we actually blocked something new
+            if (statsUpdated) {
+                updateStorage();
+            }
 
             // Hide the "Shorts" entry in the sidebar if shorts blocking is enabled
             if (blockShorts) {
@@ -94,6 +130,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         } else if (request.action === 'resetStats') {
             shortsBlockedCount = 0;
             playablesBlockedCount = 0;
+            processedItems.clear(); // Clear the set of processed items
+            updateStorage(); // Update storage with reset values
             sendResponse({ success: true });
         }
     } catch (error) {
