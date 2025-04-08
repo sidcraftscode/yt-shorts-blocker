@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Shorts Blocker</title>
+    <script src="js/tailwindcss.js"></script>
+    <style>
+        body {
+            width: 300px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="p-6">
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">YouTube Shorts Blocker</h1>
+            <p class="text-gray-600">Block shorts and focus on what matters</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-4 mb-4">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-gray-700 font-medium">Block Shorts</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" id="blockShortsToggle" checked>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <span class="text-gray-700 font-medium">Block Playables</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" id="blockPlayablesToggle" checked>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-4">
+            <h2 class="text-lg font-semibold text-gray-800 mb-3">Statistics</h2>
+            <div class="space-y-2">
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Shorts Blocked Today</span>
+                    <span class="font-medium" id="shortsBlockedCount">0</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Playables Blocked Today</span>
+                    <span class="font-medium" id="playablesBlockedCount">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 text-center">
+            <button id="resetStats" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                Reset Statistics
+            </button>
+        </div>
+    </div>
+    <script src="js/popup.js"></script>
+</body>
+</html> 
