@@ -5,7 +5,6 @@
   "description": "Block Shorts and distractions on YouTube with our open source extension. Reclaim focus and enjoy a refreshing dopamine detox!",
   "permissions": [
     "activeTab",
-    "scripting",
     "storage"
   ],
   "host_permissions": [
