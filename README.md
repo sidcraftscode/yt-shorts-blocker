@@ -12,8 +12,7 @@ A Chrome extension that blocks YouTube Shorts and Playables from your feed, help
 - Toggle controls for enabling/disabling blocking features
 
 ## Installation
-
-> **Coming soon**: Our extension has been submitted for review and will be available once that process is complete. However, if you'd like to try it out early, you can follow the instructions below to install the extension by building from the source.
+Download from the [Chrome Web Store](https://chromewebstore.google.com/detail/youtube-shorts-blocker)
 
 ### Steps to install (from source)
 
